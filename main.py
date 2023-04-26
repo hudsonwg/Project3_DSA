@@ -160,10 +160,10 @@ def approach1():
         for m in sorted:
             i1 = []
             i1.append(m.similar[0])
-            i1.append(str(getAllSimilarities(nameMap[m.similar[0]], m)).replace(",", " ").replace("[", "").replace("]", ""))
+            i1.append(str(getAllSimilarities(nameMap[m.similar[0]], m)).replace(",", "|").replace("[", "").replace("]", ""))
             if(len(m.similar)==2):
                 i1.append(m.similar[1])
-                i1.append(str(getAllSimilarities(nameMap[m.similar[1]], m)).replace(",", " ").replace("[", "").replace("]", ""))
+                i1.append(str(getAllSimilarities(nameMap[m.similar[1]], m)).replace(",", "|").replace("[", "").replace("]", ""))
             #try:
                 #i1.append(nameMap[m.similar[0]].similar[0])
                 #i1.append(str(getAllSimilarities(nameMap[nameMap[m.similar[0]].similar[0]], m)).replace(",", " ").replace("[", "").replace("]", ""))
@@ -173,10 +173,10 @@ def approach1():
                 #print("add this functionality later")
             output = m.title
             output+=","
-            output+=str(m.genres).replace(",", " ").replace("[", "").replace("]", "")
-            output+=" "+m.decade
-            output+=" "+m.media_type
-            output+=" "+m.runtime
+            output+=str(m.genres).replace(",", "|").replace("[", "").replace("]", "")
+            output+="|"+m.decade
+            output+="|"+m.media_type
+            output+="|"+m.runtime
             for i in i1:
                 output+=","
                 output+=i
@@ -203,6 +203,6 @@ def run_program():
 
 if __name__ == '__main__':
     #processData()
-    #approach1()
-    run_program()
+    approach1()
+    #run_program()
 
