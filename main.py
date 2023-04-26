@@ -1,10 +1,24 @@
 import math
 import random
-
 from langdetect import detect
 import csv
 
-
+def getAllSimilarities(m1, m2):
+    #get similarities between two pieces of media and return them as an array
+    intersection = (set(m1.genres).intersection(m2.genres))
+    ra = []
+    for i in intersection:
+        ra.append(i)
+    try:
+        if (m1.decade == m2.decade):
+            ra.append(m1.decade)
+        if (m1.media_type == m2.media_type):
+            ra.append(m1.media_type)
+        if (m1.runtime == m2.runtime):
+            ra.append(m1.runtime)
+    except:
+        toggle = False
+    return ra
 def processData():
     # detect() should return "en"
     with open('english_data.csv', 'w', newline='', encoding="utf8") as csvfile:
@@ -65,7 +79,6 @@ def printMedia(media):
     print(media.runtime)
     print(media.genres)
 
-
 def approach1():
     mediaContainer = []
     with open('english_data.csv', 'r', newline='', encoding='utf-8') as csvfile:
@@ -88,7 +101,7 @@ def approach1():
 
             genres = row[8].split(",")
 
-            media_to_insert = Media(row[2], row[5][0:2] + "00's", row[1], runtime, genres)
+            media_to_insert = Media(row[2].replace(",", " "), row[5][0:2] + "00's", row[1], runtime, genres)
             mediaContainer.append(media_to_insert)
         # HASHMAP  NAME: OBJECT
         # SORTED ARRAY, insert first object no need to sort
@@ -143,52 +156,53 @@ def approach1():
 
     print("writing to file")
     with open('sorted_output.csv', 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile, delimiter=' ', quotechar=' ', quoting=csv.QUOTE_MINIMAL)
+        writer = csv.writer(csvfile, delimiter=',', quotechar=' ', quoting=csv.QUOTE_MINIMAL)
         for m in sorted:
             i1 = []
             i1.append(m.similar[0])
+            i1.append(str(getAllSimilarities(nameMap[m.similar[0]], m)).replace(",", " ").replace("[", "").replace("]", ""))
             if(len(m.similar)==2):
                 i1.append(m.similar[1])
-
-            try:
-                i1.append(nameMap[m.similar[0]].similar[0])
-                i1.append(nameMap[m.similar[1]].similar[1])
-            except:
-                print("add this functionality later")
-
+                i1.append(str(getAllSimilarities(nameMap[m.similar[1]], m)).replace(",", " ").replace("[", "").replace("]", ""))
+            #try:
+                #i1.append(nameMap[m.similar[0]].similar[0])
+                #i1.append(str(getAllSimilarities(nameMap[nameMap[m.similar[0]].similar[0]], m)).replace(",", " ").replace("[", "").replace("]", ""))
+                #i1.append(nameMap[m.similar[1]].similar[1])
+                #i1.append(str(getAllSimilarities(nameMap[nameMap[m.similar[1]].similar[0]], m)).replace(",", " ").replace("[", "").replace("]", ""))
+            #except:
+                #print("add this functionality later")
             output = m.title
+            output+=","
+            output+=str(m.genres).replace(",", " ").replace("[", "").replace("]", "")
+            output+=" "+m.decade
+            output+=" "+m.media_type
+            output+=" "+m.runtime
             for i in i1:
                 output+=","
                 output+=i
 
-
-
             writer.writerow([output])
 
+    return mediaContainer
 
-    print("system ready to take input")
-    exit = False
-    while exit == False:
-        print("to exit, type exit")
+def run_program():
+    running = True
+    while running == True:
         response = input("Search A Movie: ")
-        if(response == "exit"):
-            exit = True
-            break
-        else:
-            #search for response in csv, if found, then get all of the names and print their stats
-
-
-
-
-
-
-
-
-
-
-
+        with open('sorted_output.csv', 'r', newline='') as csvfile:
+            reader = csv.reader(csvfile)
+            found = False
+            for row in reader:
+                if(row[0] == response):
+                    found = True
+                    print(row)
+                    break
+            if(found == False):
+                print("COULD NOT FIND MOVIE")
 
 
 if __name__ == '__main__':
     #processData()
-    approach1()
+    #approach1()
+    run_program()
+
