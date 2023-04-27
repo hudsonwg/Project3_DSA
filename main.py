@@ -19,6 +19,7 @@ def getAllSimilarities(m1, m2):
     except:
         toggle = False
     return ra
+
 def processData():
     # detect() should return "en"
     with open('english_data.csv', 'w', newline='', encoding="utf8") as csvfile:
@@ -69,7 +70,7 @@ def getSimilarity(m1, m2):
         if (m1.runtime == m2.runtime):
             similarity += runtimeWeight
     except:
-        print("at least one attribute could not be compared")
+        toggle = False
     return round(similarity, 4)
 
 def printMedia(media):
@@ -200,9 +201,57 @@ def run_program():
             if(found == False):
                 print("COULD NOT FIND MOVIE")
 
+def approach2():
+    mediaContainer = []
+    with open('english_data.csv', 'r', newline='', encoding='utf-8') as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            # READ THE DATA FROM ROW AND INSERT INTO A CLASS OBJECT, THEN INSERT THAT OBJECT INTO THE DATA STRUCTURE
+            try:
+                time = int(row[7])
+            except:
+                runtime = "unknown"
+            runtime = ""
+            if (time < 5):
+                runtime = "less than 5 minutes"
+            elif (time < 60):
+                runtime = "less than 1 hour"
+            elif (time < 120):
+                runtime = "less than 2 hours"
+            elif (time > 120):
+                runtime = "longer than 2 hours"
 
-if __name__ == '__main__':
-    #processData()
-    approach1()
-    #run_program()
+            genres = row[8].split(",")
+
+            media_to_insert = Media(row[2].replace(",", " "), row[5][0:2] + "00's", row[1], runtime, genres)
+            mediaContainer.append(media_to_insert)
+    #HERE WE GO AGAIN
+    archetypeID = 0
+    archetypes = {}
+    nameToType = {}
+    #maps archetype ID to an array of movies
+    revisit = []
+    THRESHOLD = 0.98
+    count = 0
+    for i in mediaContainer:
+        count+=1
+        found = False
+        for x in range(0, archetypeID-1):
+            if(getSimilarity(archetypes[x][0], i) > THRESHOLD):
+                found = True
+                archetypes[x].append(i)
+                nameToType[i.title] = x
+        if found == False:
+            #create new archetype, with this guy in it and then increment the ID
+            archetypes[archetypeID] = []
+            archetypes[archetypeID].append(i)
+            nameToType[i.title] = archetypeID
+            archetypeID+=1
+        print(archetypeID)
+        print(count)
+
+    print("DONE")
+    print(printMedia(archetypes[0][1]))
+    print(printMedia(archetypes[0][2]))
+
 
