@@ -1,0 +1,175 @@
+
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+}
+
+header {
+  background-image: url("https://repository-images.githubusercontent.com/275336521/20d38e00-6634-11eb-9d1f-6a5232d0f84f");
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  padding: 20px 0;
+  color: white;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.options input[type="text"] {
+  padding: 10px;
+  margin-right: 10px;
+  width: 300px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+}
+
+.options button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.options button:hover {
+  background-color: #3e8e41;
+}
+
+.benchmark {
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.benchmark button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.benchmark button:hover {
+  background-color: #3e8e41;
+}
+.sort-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.sort-buttons button {
+  margin-right: 0.5rem;
+  border: none;
+  background-color: #ccc;
+  color: #333;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.genres {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.genres span {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #3e8e41;
+}
+
+.genres ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.genres li {
+  margin: 0 10px;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+}
+
+.movies {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  position: relative;
+}
+
+.scroll-left, .scroll-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  color: #333;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.scroll-left {
+  left: 0;
+}
+
+.scroll-right {
+  right: 0;
+}
+
+.movie-container {
+  display: flex;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  padding: 10px;
+}
+
+.movie {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  width: 250px;
+  height: 400px;
+}
+
+.movie img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.movie h3 {
+  color: white;
+  margin: 0;
+  font-size: 18px;
+  text-align: center;
+}

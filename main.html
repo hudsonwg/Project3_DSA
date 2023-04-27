@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Movies</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header>
+      <h1>Movie Similarity Project</h1>
+      <div class="options">
+        <div class="search-container">
+          <input type="text" placeholder="Search...">
+            <button>Enter</button>
+        </div>
+        <div class="sort-container">
+          <button>Sort by A-Z</button>
+          <button>Sort by Release Date</button>
+		</div>
+		  <div class="Benchmark-container">
+          <button>Benchmark</button>
+		</div>
+      </div>
+      <div class="genres">
+        <span>Genres/Tags:</span>
+        <ul>
+          <li><label><input type="checkbox" name="genre" value="action"> Action</label></li>
+          <li><label><input type="checkbox" name="genre" value="comedy"> Comedy</label></li>
+          <li><label><input type="checkbox" name="genre" value="drama"> Drama</label></li>
+          <li><label><input type="checkbox" name="genre" value="horror"> Horror</label></li>
+          <li><label><input type="checkbox" name="genre" value="romance"> Romance</label></li>
+          <li><label><input type="checkbox" name="genre" value="sci-fi"> Sci-Fi</label></li>
+        </ul>
+      </div>
+    </header>
+    <div class="movies">
+      <button class="scroll-left">&lt;</button>
+      <div class="movie-container">
+        <div class="movie">
+          <h3>Movie 1</h3>
+        </div>
+        <div class="movie">
+          <h3>Movie 2</h3>
+        </div>
+        <div class="movie">
+          <h3>Movie 3</h3>
+        </div>
+        <div class="movie">
+          <h3>Movie 4</h3>
+        </div>
+      </div>
+      <button class="scroll-right">&gt;</button>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
+
+
