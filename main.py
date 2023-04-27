@@ -250,8 +250,47 @@ def approach2():
         print(archetypeID)
         print(count)
 
-    print("DONE")
-    print(printMedia(archetypes[0][1]))
-    print(printMedia(archetypes[0][2]))
+    #print("DONE")
+    #print(printMedia(archetypes[0][1]))
+    #print(printMedia(archetypes[0][2]))
+
+
+    with open('sorted_output2.csv', 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile, delimiter=',', quotechar=' ', quoting=csv.QUOTE_MINIMAL)
+        for i in mediaContainer:
+            row = []
+            row.append(i.title)
+            temp = getAllSimilarities(i, i)
+            text = ""
+            for m in temp:
+                text += "|"
+                text+= m
+            row.append(text)
+            tp = archetypes[nameToType[i.title]]
+            count = 0
+            for x in tp:
+                if x.title != row[0]:
+                    #append this object
+                    row.append(x.title)
+                    temp = getAllSimilarities(x, i)
+                    text = ""
+                    for m in temp:
+                        text += "|"
+                        text += m
+                    row.append(text)
+                if (count == 4 or count == len(tp)-1):
+                    break
+                count+=1
+            rowText = row[0]
+            for j in range (1, len(row)):
+                rowText+=","
+                rowText+=row[j]
+            writer.writerow([rowText])
+
+if __name__ == '__main__':
+    #processData()
+    #approach1()
+    #run_program()
+    approach2()
 
 
