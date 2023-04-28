@@ -2,6 +2,7 @@ import math
 import random
 from langdetect import detect
 import csv
+import PySimpleGUI as sg
 
 def getAllSimilarities(m1, m2):
     #get similarities between two pieces of media and return them as an array
@@ -287,10 +288,57 @@ def approach2():
                 rowText+=row[j]
             writer.writerow([rowText])
 
+
+def runGUI():
+    # BEGINNING OF GUI CODE
+    layout = [
+        [sg.Image('background1.png', size=(900, 300))],
+        [sg.Text("Search A Movie!", font=("Arial", 15), background_color='black')],
+        [sg.Input(size=(30, 1), key='searchbar', background_color='white')],
+        [sg.Button("Search")],
+        [sg.Text("please search a movie", font=("Arial", 11), background_color='light blue', text_color='black',
+                 size=(20, 15), justification='center', key="4"),
+        sg.Text("please search a movie", font=("Arial", 11), background_color='white', text_color='black',
+                 size=(20, 15), justification='center', key="1"),
+         sg.Text("please search a movie", font=("Arial", 11), background_color='white', text_color='black',
+                 size=(20, 15), justification='center', key="2"),
+         sg.Text("please search a movie", font=("Arial", 11), background_color='white', text_color='black',
+                 size=(20, 15), justification='center', key="3")]
+    ]
+    window = sg.Window("MovieSearch", layout, size=(900, 600), element_justification='c', background_color='black')
+    sg.theme_background_color(000000)
+    while True:
+        event, values = window.read()
+        if (event == "Search"):
+            input = " " + values['searchbar']
+
+            with open('sorted_output2.csv', 'r', newline='') as csvfile:
+                reader = csv.reader(csvfile)
+                found = False
+                for row in reader:
+                    if (row[0] == input):
+                        window["4"].update("\n" + "\n" + row[0] + "\n" + "\n" + row[1])
+                        window["1"].update("\n"+"\n"+row[2] + "\n"+ "\n"+row[3])
+                        window["2"].update("\n"+"\n"+row[4] + "\n"+ "\n"+ row[5])
+                        window["3"].update("\n"+"\n"+row[6] + "\n"+ "\n"+ row[7])
+                        found = True
+                        break
+                if(found == False):
+                    window["4"].update("MOVIE NOT FOUND, PLEASE TRY AGAIN")
+                    window["1"].update("MOVIE NOT FOUND, PLEASE TRY AGAIN")
+                    window["2"].update("MOVIE NOT FOUND, PLEASE TRY AGAIN")
+                    window["3"].update("MOVIE NOT FOUND, PLEASE TRY AGAIN")
+
+        if event == sg.WIN_CLOSED:
+            break
+    window.close()
+
 if __name__ == '__main__':
     #processData()
     #approach1()
     #run_program()
-    approach2()
+    #approach2()
+    runGUI()
+
 
 
